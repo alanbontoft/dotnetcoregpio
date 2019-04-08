@@ -2,6 +2,8 @@
 using System.Device.Gpio;
 using System.Threading;
 using System.IO.Ports;
+using System.Device.Spi;
+using System.Device.Spi.Drivers;
 
 namespace gpiotest
 {
@@ -13,7 +15,15 @@ namespace gpiotest
             var lightTimeInMilliseconds = 1000;
             var dimTimeInMilliseconds = 1200;
 
+            // Serial Port
             System.IO.Ports.SerialPort port = new SerialPort();
+            
+            // SPI
+            var busId = 1;
+            var chipSelectLine = 0;
+            var settings = new SpiConnectionSettings(busId, chipSelectLine);
+
+            SpiDevice spi = new UnixSpiDevice(settings);
             
             Console.WriteLine($"Let's blink an LED!");
             using (GpioController controller = new GpioController())

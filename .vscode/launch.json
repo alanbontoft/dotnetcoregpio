@@ -22,7 +22,7 @@
             "processId": "${command:pickProcess}"
         },
         {	
-            "name": ".NET Core Remote Launch - Framework Dependent (console)",
+            "name": ".NET Core Remote Launch - Linux",
             "type": "coreclr",
             "request": "launch",
             "program": "~/target/dotnetcoregpio/dotnetcoregpio",
@@ -40,6 +40,27 @@
             ],
             "debuggerPath": "~/vsdbg/vsdbg"
             }   
+        },
+        {
+            "name": ".NET Core Remote Launch - Windows",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "/home/pi/target/gpiotest/dotnetcoregpio",
+            // "args": ["/home/pi/target/helloworld.dll"],
+            "cwd": "/home/pi/target/gpiotest",
+            "stopAtEntry": true,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "c:\\program files\\putty\\PLINK.EXE",
+                "pipeArgs": [
+                    "-pw",
+                    "raspberry",
+                    "pi@10.96.83.198"
+                ],
+                "debuggerPath": "/home/pi/vsdbg/vsdbg"
+            }
         }	
     ]
 }
