@@ -20,10 +20,10 @@ namespace gpiotest
             System.IO.Ports.SerialPort port = new SerialPort();
             
             // SPI
-            // using /dev/spidev0.0
+            // using '/dev/spidev0.0' (use CS = 1 for spidev0.1)
             var busId = 0;
-            var chipSelectLine = 0;
-            var settings = new SpiConnectionSettings(busId, chipSelectLine);
+            var chipSelect = 0;
+            var settings = new SpiConnectionSettings(busId, chipSelect);
 
             SpiDevice spi = new UnixSpiDevice(settings);
             
@@ -47,6 +47,8 @@ namespace gpiotest
                     Console.WriteLine($"Dim for {dimTimeInMilliseconds}ms");
                     controller.Write(pin, PinValue.Low);
                     Thread.Sleep(dimTimeInMilliseconds);
+                    
+                    // send byte via SPI and increment value
                     spi.WriteByte(data++);
                 }
             }
