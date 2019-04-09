@@ -12,14 +12,16 @@ namespace gpiotest
         static void Main(string[] args)
         {
             var pin = 17;
-            var lightTimeInMilliseconds = 1000;
-            var dimTimeInMilliseconds = 1200;
+            var lightTimeInMilliseconds = 250;
+            var dimTimeInMilliseconds = 250;
+            byte data = 1;
 
             // Serial Port
             System.IO.Ports.SerialPort port = new SerialPort();
             
             // SPI
-            var busId = 1;
+            // using /dev/spidev0.0
+            var busId = 0;
             var chipSelectLine = 0;
             var settings = new SpiConnectionSettings(busId, chipSelectLine);
 
@@ -45,6 +47,7 @@ namespace gpiotest
                     Console.WriteLine($"Dim for {dimTimeInMilliseconds}ms");
                     controller.Write(pin, PinValue.Low);
                     Thread.Sleep(dimTimeInMilliseconds);
+                    spi.WriteByte(data++);
                 }
             }
 
