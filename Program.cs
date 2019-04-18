@@ -63,7 +63,7 @@ namespace gpiotest
                     buffer[1] = (byte)(sendValue & 0x00FF);
                     
                     // send using Write(ReadOnlySpan) as WriteByte will raise CS between bytes 
-                    ReadOnlySpan<byte> span = new ReadOnlySpan<byte>(buffer);
+                    ReadOnlySpan<byte> span = buffer;
                     
                     // write 16 bit value to DAC
                     spi.Write(span);
